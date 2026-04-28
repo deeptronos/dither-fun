@@ -16,6 +16,8 @@ const mat4 bayerMatrix4x4 = mat4(
     vec4(15.0, 7.0,  13.0, 5.0)
 ) / 16.0;
 
+
+
 float get_bayer_threshold(vec2 c){
 	ivec2 bayer_coord = ivec2(c.xy) % 4;
 	float threshold = bayerMatrix4x4[bayer_coord.x][bayer_coord.y];
@@ -57,7 +59,7 @@ void fragment() {
 	cc.rgb = orderedDither(FRAGCOORD.xy, lum);
 	cc.a = float((cc.r + cc.g + cc.b) / 3.0);
 	ALBEDO=cc.rgb;
-	ALPHA=cc.a;
+	//ALPHA=cc.a;
 	//ALPHA_SCISSOR_THRESHOLD = 0.0;
 	ALPHA_HASH_SCALE = 1.0; // For some reason, if we don't set this, backfaces of the model are transparent? TODO wtf
 	//ALPHA=a;
