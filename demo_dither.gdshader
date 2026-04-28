@@ -55,9 +55,13 @@ void fragment() {
 	float lum = dot(vec3(0.2126, 0.7152, 0.0722), cc.rgb);
 	//float lum = max(cc.r, max(cc.g, cc.b)); // innaccurate!!
 	cc.rgb = orderedDither(FRAGCOORD.xy, lum);
-	
-	//ALBEDO=cc.rgb;
-	ALPHA=float((cc.r + cc.g + cc.b)/3.0 ); // Dither upon Alpha
+	cc.a = float((cc.r + cc.g + cc.b) / 3.0);
+	ALBEDO=cc.rgb;
+	ALPHA=cc.a;
+	//ALPHA_SCISSOR_THRESHOLD = 0.0;
+	ALPHA_HASH_SCALE = 1.0; // For some reason, if we don't set this, backfaces of the model are transparent? TODO wtf
+	//ALPHA=a;
+	//ALPHA=float((cc.r + cc.g + cc.b)/3.0 ); // Dither upon Alpha
 	
 	//float depth = textureLod(depth_texture, SCREEN_UV, 0.0).r;
     //vec4 upos = INV_PROJECTION_MATRIX * vec4(SCREEN_UV * 2.0 - 1.0, depth, 1.0);
